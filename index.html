@@ -45,6 +45,9 @@ button:hover {
     width: 100%;
     height: 100%;
     background: black;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #prankScreen img {
@@ -62,17 +65,12 @@ button:hover {
 
 <div id="loading">Učitavanje projekta... 0%</div>
 
-<div id="prankScreen">
-    <img id="prankImage" src="">
-    <audio id="prankSound" src=""></audio>
+<div id="prankScreen" class="flex">
+    <img id="prankImage" src="slika.jpg" alt="Prank Image">
+    <audio id="prankSound" src="zvuk.mp3"></audio>
 </div>
 
 <script>
-// Ovde stavi svoje fajlove
-const imageFile = "slika.jpg"; // ime slike
-const audioFile = "zvuk.mp3";  // ime zvuka
-
-// Referencije
 const btn = document.getElementById("trollBtn");
 const loading = document.getElementById("loading");
 const prankScreen = document.getElementById("prankScreen");
@@ -88,6 +86,7 @@ btn.addEventListener("click", function() {
     const interval = setInterval(() => {
         percent += 5;
         loading.innerText = "Učitavanje projekta... " + percent + "%";
+
         if (percent >= 100) {
             clearInterval(interval);
             startPrank();
@@ -97,16 +96,12 @@ btn.addEventListener("click", function() {
 
 // Funkcija za prank
 function startPrank() {
-    document.body.innerHTML = "";
-    prankScreen.style.display = "block";
-    prankImage.src = imageFile;
-    prankSound.src = audioFile;
+    loading.style.display = "none";
+    prankScreen.style.display = "flex";
 
-    // Auto play zvuk
+    // Pokreni audio
     prankSound.play().catch(() => {
-        // Ako browser blokira autoplay
-        alert("Klikni da pustiš zvuk!");
-        prankSound.play();
+        // Ne mora ništa, browser blokira autoplay, oni kliknu pa svira
     });
 }
 </script>
